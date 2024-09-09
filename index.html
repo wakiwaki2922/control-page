@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        light: {
+                            background: '#f3f4f6',
+                            text: '#1f2937',
+                            card: '#ffffff',
+                        },
+                        dark: {
+                            background: '#1f2937',
+                            text: '#f3f4f6',
+                            card: '#374151',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .card {
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+        }
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text min-h-screen flex flex-col">
+    <header class="p-4 flex justify-between items-center">
+        <div id="clock" class="text-xl"></div>
+        <button id="toggleTheme" class="p-2 bg-light-card dark:bg-dark-card rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold text-center mb-8">Chọn trang quản lý</h1>
+            <div class="mb-4">
+                <input type="text" id="search" placeholder="Tìm kiếm..." class="w-full p-2 bg-light-card dark:bg-dark-card rounded-lg">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="cardContainer">
+                <a href="http://admin.supathot.duckdns.org" class="card bg-light-card dark:bg-dark-card hover:bg-gray-100 dark:hover:bg-gray-700 p-6 rounded-lg shadow-lg flex flex-col items-center transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <span class="text-xl font-semibold">Webmin</span>
+                </a>
+                <a href="http://portainer.supathot.duckdns.org" class="card bg-light-card dark:bg-dark-card hover:bg-gray-100 dark:hover:bg-gray-700 p-6 rounded-lg shadow-lg flex flex-col items-center transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582-4 8-4s8 1.79 8 4V7M4 7c0 2.21-3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582-4-8-4s-8 1.79-8 4m0 5c0 2.21-3.582-4-8-4s-8 1.79-8 4" />
+                    </svg>
+                    <span class="text-xl font-semibold">Portainer</span>
+                </a>
+                <a href="http://npm.supathot.duckdns.org" class="card bg-light-card dark:bg-dark-card hover:bg-gray-100 dark:hover:bg-gray-700 p-6 rounded-lg shadow-lg flex flex-col items-center transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                    </svg>
+                    <span class="text-xl font-semibold">Nginx Proxy Manager</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Dong ho thoi gian thuc
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('vi-VN');
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Chuyen doi che do sang/toi
+        const toggleTheme = document.getElementById('toggleTheme');
+        const html = document.documentElement;
+        
+        toggleTheme.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Kiem tra va ap dung che do da luu
+        if (localStorage.getItem('theme') === 'light') {
+            html.classList.remove('dark');
+        }
+
+        // Tim kiem nhanh
+        const search = document.getElementById('search');
+        const cardContainer = document.getElementById('cardContainer');
+        const noResultsPlaceholder = document.createElement('div');
+        noResultsPlaceholder.textContent = 'Khong tim thay ket qua';
+        noResultsPlaceholder.className = 'text-center py-4 text-gray-500';
+        
+        search.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            let hasResults = false;
+            Array.from(cardContainer.children).forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = '';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (!hasResults && searchTerm) {
+                cardContainer.appendChild(noResultsPlaceholder);
+            } else {
+                noResultsPlaceholder.remove();
+            }
+        });
+
+        // Them hieu ung loading khi chuyen trang
+        const links = document.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const loadingOverlay = document.createElement('div');
+                loadingOverlay.className = 'loading-overlay';
+                loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
+                document.body.appendChild(loadingOverlay);
+                setTimeout(() => {
+                    window.location.href = link.href;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
