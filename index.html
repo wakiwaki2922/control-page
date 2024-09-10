@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Chủ</title>
+    <link rel="icon" href="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f4bb.svg" type="image/svg+xml">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/favico.js/0.3.10/favico.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -165,6 +167,27 @@
                 }, 500);
             });
         });
+
+        // Animated favicon
+        const favicon = new Favico({
+            animation: 'slide'
+        });
+
+        const faviconImages = [
+            'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f4bb.svg', // Laptop
+            'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f575.svg', // Detective
+            'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f512.svg', // Lock
+            'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f5a5.svg', // Desktop Computer
+        ];
+
+        let currentImageIndex = 0;
+
+        function updateFavicon() {
+            favicon.image(faviconImages[currentImageIndex]);
+            currentImageIndex = (currentImageIndex + 1) % faviconImages.length;
+        }
+
+        setInterval(updateFavicon, 1000); // Thay doi favicon moi giay
     </script>
 </body>
 </html>
