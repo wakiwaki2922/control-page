@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Quản Lý</title>
-    <link rel="icon" href="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f4bb.svg" type="image/svg+xml">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/favico.js/0.3.10/favico.min.js" defer></script>
+    <meta name="description" content="Trang quản lý các dịch vụ và ứng dụng">
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
     <script src="https://cdn.tailwindcss.com/3.3.3"></script>
     <script>
         tailwind.config = {
@@ -28,6 +28,7 @@
             },
         }
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .card {
             transition: transform 0.3s;
@@ -67,7 +68,7 @@
 <body class="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text min-h-screen flex flex-col">
     <header class="p-4 flex justify-between items-center">
         <div id="clock" class="text-xl"></div>
-        <button id="toggleTheme" class="p-2 bg-light-card dark:bg-dark-card rounded-full">
+        <button id="toggleTheme" class="p-2 bg-light-card dark:bg-dark-card rounded-full" aria-label="Chuyển đổi chế độ sáng/tối">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
             </svg>
@@ -89,7 +90,7 @@
                 </a>
                 <a href="http://portainer.supathot.duckdns.org" class="card bg-light-card dark:bg-dark-card hover:bg-gray-100 dark:hover:bg-gray-700 p-6 rounded-lg shadow-lg flex flex-col items-center transition duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 00-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
                     </svg>
                     <span class="text-xl font-semibold">Portainer</span>
                 </a>
@@ -117,8 +118,12 @@
         const html = document.documentElement;
         
         toggleTheme.addEventListener('click', () => {
+            document.body.style.transition = 'background-color 0.3s, color 0.3s';
             html.classList.toggle('dark');
             localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+            setTimeout(() => {
+                document.body.style.transition = '';
+            }, 300);
         });
 
         // Kiem tra va ap dung che do da luu
@@ -167,27 +172,6 @@
                 }, 500);
             });
         });
-
-        // Animated favicon
-        const favicon = new Favico({
-            animation: 'slide'
-        });
-
-        const faviconImages = [
-            'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f4bb.svg', // Laptop
-            'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f575.svg', // Detective
-            'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f512.svg', // Lock
-            'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/svg/1f5a5.svg', // Desktop Computer
-        ];
-
-        let currentImageIndex = 0;
-
-        function updateFavicon() {
-            favicon.image(faviconImages[currentImageIndex]);
-            currentImageIndex = (currentImageIndex + 1) % faviconImages.length;
-        }
-
-        setInterval(updateFavicon, 1000); // Thay doi favicon moi giay
     </script>
 </body>
 </html>
